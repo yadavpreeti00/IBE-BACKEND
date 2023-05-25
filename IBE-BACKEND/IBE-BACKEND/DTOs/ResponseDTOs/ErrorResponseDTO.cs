@@ -1,4 +1,4 @@
-﻿namespace IBE_BACKEND.DTOs
+﻿namespace IBE_BACKEND.DTOs.ResponseDTOs
 {
     public class ErrorResponseDTO
     {

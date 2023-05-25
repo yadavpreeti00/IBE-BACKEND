@@ -1,4 +1,4 @@
-﻿using IBE_BACKEND.DTOs;
+﻿using IBE_BACKEND.DTOs.ResponseDTOs;
 using IBE_BACKEND.Exceptions;
 
 namespace IBE_BACKEND.Middlewares

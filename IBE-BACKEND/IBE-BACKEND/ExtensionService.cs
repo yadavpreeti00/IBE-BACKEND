@@ -1,4 +1,11 @@
-﻿using IBE_BACKEND.Models;
+﻿
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.Extensions.NETCore.Setup;
+using IBE_BACKEND.Interface;
+using IBE_BACKEND.Models;
+using IBE_BACKEND.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -54,6 +61,31 @@ namespace IBE_BACKEND
             });
             return services;
         }
+
+        public static IServiceCollection ConfigureServices(this IServiceCollection services, IConfiguration configuration)
+        {
+            // Configuring DynamoDB client with AWS SSO authentication
+            services.AddAWSService<IAmazonDynamoDB>(new AWSOptions
+            {
+                Profile = configuration["AWS:Profile"],
+                Region = RegionEndpoint.GetBySystemName(configuration["AWS:Region"])
+            })
+            //cors configuration
+            .AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("*")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            })
+            .AddTransient<IConfigurationDataService, ConfigurationDataService>(); 
+
+            return services;
+        }
+
 
     }
 }

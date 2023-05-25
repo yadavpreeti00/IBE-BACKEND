@@ -81,7 +81,8 @@ namespace IBE_BACKEND
                             .AllowAnyMethod();
                     });
             })
-            .AddTransient<IConfigurationDataService, ConfigurationDataService>(); 
+            .AddTransient<IConfigurationDataService, ConfigurationDataService>()
+            .AddTransient<IPromotionsService, PromotionsService>();
 
             return services;
         }

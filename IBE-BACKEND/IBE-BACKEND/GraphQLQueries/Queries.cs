@@ -25,17 +25,17 @@
                 "  }\n" +
                 "}\n";
 
-        public static string rateBetweenDateRangeQuery = "query MyQuery {\n" +
-                " listRoomRates(where: {date: {gte: \"%s\", lte: \"%s\"}, AND: {room_types: {some: {room_type: {property_id: {equals: %d}}}}}}, take: 1000) {\n" +
-                " basic_nightly_rate\n" +
-                " room_types {\n" +
-                " room_type {\n" +
-                " property_id\n" +
-                " room_type_name\n" +
-                " }\n" +
-                " }\n" +
-                " }\n" +
-                "}";
+        public static string rateBetweenDateRangeQuery = "query MyQuery { " +
+                 "listRoomRates(where: {date: {gte: \"{0}\", lte: \"{1}\"}, AND: {room_types: {some: {room_type: {property_id: {equals: {2}}}}}}}, take: 1000) { " +
+                     "basic_nightly_rate " +
+                     "room_types { " +
+                         "room_type { " +
+                             "property_id " +
+                             "room_type_name " +
+                         "} " +
+                     "} " +
+                 "} " +
+             "}";
 
         public static string searchResultsQuery = "query MyQuery {\n" +
                 " listRoomAvailabilities(where: {property_id: {equals: %d}, date: {gte: \"%s\", lte: \"%s\"}, booking_id: {equals: 0}}, take: 1000) {\n" +

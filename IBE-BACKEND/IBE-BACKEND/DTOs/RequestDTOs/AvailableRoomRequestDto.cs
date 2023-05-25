@@ -8,13 +8,11 @@ namespace IBE_BACKEND.DTOs.RequestDTOs
     {
         [Required]
         [JsonProperty("startDate")]
-        [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
 
         [Required]
         [JsonProperty("endDate")]
-        [JsonConverter(typeof(JsonDateConverter))]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
 
         [Required]
         [JsonProperty("roomCount")]

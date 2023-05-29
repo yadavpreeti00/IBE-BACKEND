@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IBE_BACKEND.Controllers
 {
-    [Route("/api")]
+    [Route("api")]
     [ApiController]
     public class MinimumRateController : Controller
     {
@@ -13,7 +13,7 @@ namespace IBE_BACKEND.Controllers
             _minimumRateService = minimumRateService;
         }
         [HttpGet]
-        [Route("/MinimumRates")]
+        [Route("Get/MinimumRates")]
 
         public async Task<IActionResult> GetDateToMinimumRateMap()
         {

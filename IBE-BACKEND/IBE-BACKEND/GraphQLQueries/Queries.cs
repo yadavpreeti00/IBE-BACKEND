@@ -26,7 +26,7 @@
                 "}\n";
 
         public static string rateBetweenDateRangeQuery = "query MyQuery { " +
-                 "listRoomRates(where: {date: {gte: \"{0}\", lte: \"{1}\"}, AND: {room_types: {some: {room_type: {property_id: {equals: {2}}}}}}}, take: 1000) { " +
+                 "listRoomRates(where: {date: {gte:\"2023-03-01T00:00:00.000Z\", lte: \"2023-03-28T00:00:00.000Z\"}, AND: {room_types: {some: {room_type: {property_id: {equals: 3}}}}}}, take: 1000) { " +
                      "basic_nightly_rate " +
                      "room_types { " +
                          "room_type { " +
@@ -38,7 +38,7 @@
              "}";
 
         public static string searchResultsQuery = "query MyQuery {\n" +
-                " listRoomAvailabilities(where: {property_id: {equals: %d}, date: {gte: \"%s\", lte: \"%s\"}, booking_id: {equals: 0}}, take: 1000) {\n" +
+                " listRoomAvailabilities(where: {property_id: {equals: 3}, date: {gte:\"2023-05-01T00:00:00.000Z\", lte: \"2023-05-28T00:00:00.000Z\"}, booking_id: {equals: 0}}, take: 1000) {\n" +
                 " date\n" +
                 " room_id\n" +
                 " room {\n" +

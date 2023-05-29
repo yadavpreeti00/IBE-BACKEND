@@ -21,10 +21,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
-builder.Services.AddScoped<GraphQLClientService>();
-builder.Services.AddTransient<MinimumRateService>();
-
 builder.Logging.AddConsole();
 
 

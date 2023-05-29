@@ -4,21 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IBE_BACKEND.Controllers
 {
-    [Route("/api")]
+    [Route("api")]
     [ApiController]
     public class SearchResultsController : Controller
     {
         private readonly IPromotionsService _promotionsService;
-        public SearchResultsController (IPromotionsService promotionsService)
+        private readonly ISearchResultsService _searchResultsService;
+        public SearchResultsController (IPromotionsService promotionsService, ISearchResultsService searchResultsService)
         {
             _promotionsService = promotionsService;
+            _searchResultsService = searchResultsService;
         }
 
         [HttpPost]
         [Route("/SearchResults")]
-        public IActionResult GetSearchResult(AvailableRoomRequestDto availableRoomRequest)
+        public async Task<IActionResult> GetSearchResult(AvailableRoomRequestDto availableRoomRequest)
         {
-            return View();
+            var response = await _searchResultsService.GetSearchResults(availableRoomRequest);
+            return Ok(response);
         }
 
         [HttpPost]

@@ -2,9 +2,9 @@
 
 namespace IBE_BACKEND.Models.GraphQLResponseModels
 {
-    public class RoomTypesResponse
+    public class SearchResultRoom
     {
         [JsonProperty("room_type")]
-        public RoomTypeResponse RoomType { get; set; }
+        public SearchResultRoomType RoomType { get; set; }
     }
 }

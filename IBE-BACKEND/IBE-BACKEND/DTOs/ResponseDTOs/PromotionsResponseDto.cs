@@ -45,5 +45,8 @@ namespace IBE_BACKEND.DTOs.ResponseDTOs
             PromotionId = promotionId;
         }
 
+        public PromotionsResponseDto()
+        {
+        }
     }
 }

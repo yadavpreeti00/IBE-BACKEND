@@ -3,10 +3,15 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.Extensions.NETCore.Setup;
 using IBE_BACKEND.Interface;
+using IBE_BACKEND.Middlewares;
 using IBE_BACKEND.Models;
+using IBE_BACKEND.Repository;
 using IBE_BACKEND.Services;
+using IBE_BACKEND.Services.ClientServices;
+using IBE_BACKEND.Services.DatabaseServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace IBE_BACKEND
@@ -15,8 +20,9 @@ namespace IBE_BACKEND
     {
         public static IServiceCollection ConfigureDatabaseConnection(this IServiceCollection services, IConfiguration configuration)
         {
-            return services.AddDbContext<team03Context>(options =>
-                options.UseNpgsql(configuration["ConnectionString:DefaultConnection"]));
+            services.AddDbContext<team03Context>(options =>
+            options.UseNpgsql("Server=kdujan23-postgres.clvoh3vxfheb.ap-south-1.rds.amazonaws.com;Port=5432;Database=team03;User Id=team03;Password=jw8s01reuiF4") );
+            return services;
         }
 
         public static IServiceCollection ConfigureSwagger(this IServiceCollection services)
@@ -81,8 +87,21 @@ namespace IBE_BACKEND
                             .AllowAnyMethod();
                     });
             })
-            .AddTransient<IConfigurationDataService, ConfigurationDataService>()
-            .AddTransient<IPromotionsService, PromotionsService>();
+            .AddScoped<IConfigurationDataService, ConfigurationDataService>()
+            .AddScoped<IPromotionsService, PromotionsService>()
+            .AddScoped<ISearchResultsService, SearchResultsService>()
+            .AddScoped<ICheckoutService, CheckoutService>()
+            .AddScoped<MinimumRateService>()
+            .AddScoped<ExceptionHandlingMiddleware>()
+            .AddScoped<IBookingService, BookingService>()
+            .AddScoped<IRoomTypeRoomIdRepository, RoomTypeRoomIdRepository>()
+            .AddScoped<IRoomAvailabilityService, RoomAvailablityService>()
+            .AddScoped<IBookingStatusService, BookingStatusService>()
+            .AddScoped<GraphQLClientService>()
+            .AddScoped<HttpClient>()
+            .AddScoped<SQSClientService>()
+            .AddHostedService<SqsBackGroundService>();
+
 
             return services;
         }

@@ -30,6 +30,7 @@ namespace IBE_BACKEND.Middlewares
                 context.Response.ContentType = "application/json";
                 string jsonErrorResponse = GenerateErrorResponse(ex.Message, context.Request.Path, 500);
                 _logger.LogError(jsonErrorResponse);
+                _logger.LogError(ex.StackTrace);
                 await context.Response.WriteAsync(jsonErrorResponse);
             }
         }

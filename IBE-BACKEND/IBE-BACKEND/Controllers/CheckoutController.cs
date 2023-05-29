@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using IBE_BACKEND.DTOs.RequestDTOs;
+using IBE_BACKEND.Interface;
+using Microsoft.AspNetCore.Mvc;
 
 namespace IBE_BACKEND.Controllers
 {
@@ -6,11 +8,18 @@ namespace IBE_BACKEND.Controllers
     [ApiController]
     public class CheckoutController : Controller
     {
-        [HttpGet]
-        [Route("Get/PriceBreakDown")]
-        public IActionResult Index()
+        private readonly ICheckoutService _checkoutService;
+        public CheckoutController(ICheckoutService checkoutService) 
         {
-            return View();
+            _checkoutService = checkoutService;
+        }
+        [HttpPost]
+        [Route("Get/PriceBreakDown")]
+        public async Task<IActionResult> GetRateBreakDown(PriceBreakdownRequestDto priceBreakdownRequest)
+        {
+            var response = await _checkoutService.GetPriceBreakDown(priceBreakdownRequest);
+            return Ok(response);
+            
         }
     }
 }

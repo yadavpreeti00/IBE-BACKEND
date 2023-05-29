@@ -55,5 +55,19 @@ namespace IBE_BACKEND.Utility
             }
         }
 
+        public static DateTime ConvertToDate(string dateString)
+        {
+            DateTime date;
+            try
+            {
+                date = DateTime.Parse(dateString.Split('T')[0]);
+                return date.Date;
+            }
+            catch (FormatException e)
+            {
+                throw new ArgumentException("Invalid date", e);
+            }
+        }
+
     }
 }

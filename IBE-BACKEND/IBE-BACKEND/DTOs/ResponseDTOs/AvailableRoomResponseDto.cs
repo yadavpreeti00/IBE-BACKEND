@@ -28,5 +28,21 @@ namespace IBE_BACKEND.DTOs.ResponseDTOs
         public string Rating { get; set; }
         [JsonPropertyName("reviewers")]
         public long Reviewers { get; set; }
+
+        public AvailableRoomResponseDto(string roomTypeName, string roomTypeId, int singleBed, int doubleBed, int totalBeds, int maxCapacity, int areaInSquareFeet, bool specialDeal, string specialDealDescription, double rate, string rating, long reviewers)
+        {
+            RoomTypeName = roomTypeName;
+            RoomTypeId = roomTypeId;
+            SingleBed = singleBed;
+            DoubleBed = doubleBed;
+            TotalBeds = totalBeds;
+            MaxCapacity = maxCapacity;
+            AreaInSquareFeet = areaInSquareFeet;
+            SpecialDeal = specialDeal;
+            SpecialDealDescription = specialDealDescription;
+            Rate = rate;
+            Rating = rating;
+            Reviewers = reviewers;
+        }
     }
 }

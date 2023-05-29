@@ -11,11 +11,13 @@ namespace IBE_BACKEND.Services
     {
         private readonly IAmazonDynamoDB _dynamoDbClient;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<ConfigurationDataService> _logger;
 
-        public ConfigurationDataService(IAmazonDynamoDB dynamoDbClient,IConfiguration configuration)
+        public ConfigurationDataService(IAmazonDynamoDB dynamoDbClient,IConfiguration configuration, ILogger<ConfigurationDataService> logger)
         {
             _dynamoDbClient = dynamoDbClient;
             _configuration = configuration;
+            _logger = logger;
         }
         public async Task<ConfigurationResponse> GetLandingPageConfigurationData()
         {
@@ -29,19 +31,20 @@ namespace IBE_BACKEND.Services
 
             if (response.Items.Count > 0)
             {
-                var item = response.Items[0];
+                var item = response.Items[1];
 
                 var configurationItem = new ConfigurationResponse
                 {
                     TenantId = item["tenantId"].S,
-                    Page = "LandingPage",
+                    Page = item["page"].S,
                     Configuration = item["configuration"].S
                 };
                 return configurationItem;
             }
             else
             {
-                throw new ResourceNotFoundException("Could not get landing Page data");
+                _logger.LogError("Failed ot get landing page data from dynamo db table");
+                throw new CustomException("Could not get landing Page data", 500);
             }
         }
 
@@ -57,7 +60,7 @@ namespace IBE_BACKEND.Services
 
             if (response.Items.Count > 0)
             {
-                var item = response.Items[0];
+                var item = response.Items[2];
 
                 var configurationItem = new ConfigurationResponse
                 {
@@ -69,7 +72,8 @@ namespace IBE_BACKEND.Services
             }
             else
             {
-                throw new ResourceNotFoundException("Could not get room results Page data");
+                _logger.LogError("Failed ot get room results page data from dynamo db table");
+                throw new CustomException("Could not get room results Page data",500);
             }
         }
 
@@ -97,7 +101,8 @@ namespace IBE_BACKEND.Services
             }
             else
             {
-                throw new ResourceNotFoundException("Could not get checkout Page data");
+                _logger.LogError("Failed ot get checkout page data from dynamo db table");
+                throw new CustomException("Could not get checkout Page data",500);
             }
         }
     }
